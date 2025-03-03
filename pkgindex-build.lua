@@ -19,8 +19,8 @@ package = {
     },
 }
 
-local pkgsdir = os.scriptdir()
-local projectdir = path.directory(pkgsdir)
+local projectdir = os.scriptdir()
+local pkgsdir = path.join(projectdir, "pkgs")
 local template = path.join(projectdir, "template.lua")
 
 function installed()
@@ -36,17 +36,17 @@ function install()
 
     local files = os.files(path.join(pkgsdir, "**.lua"))
     local template_content = io.readfile(template)
-    local updated_index_cnt = 0
-    local all_index_cnt = files and #files or 0
+    local built_index_cnt = 0
+    local all_index_cnt = #files
     for _, file in ipairs(files) do
-        updated_index_cnt = updated_index_cnt + 1
+        built_index_cnt = built_index_cnt + 1
         -- skip pkgindex-update.lua
         if not file:endswith("pkgindex-update.lua") then
             -- append template content to the end of the file
-            cprint("[${green}%d/%d${clear}] d2x::%s", updated_index_cnt, all_index_cnt, file)
+            cprint("[${green}%d/%d${clear}] d2x::%s", built_index_cnt, all_index_cnt, file)
             io.writefile(file, io.readfile(file) .. template_content)
         else
-            cprint("[${yellow}%d/%d${clear}] d2x::%s (skip)", updated_index_cnt, all_index_cnt, file)
+            cprint("[${yellow}%d/%d${clear}] d2x::%s (skip)", built_index_cnt, all_index_cnt, file)
         end
     end
     return true

@@ -1,3 +1,3 @@
-# xim-pkgindex-template
+# xim-pkgindex-d2x
 
-xim package-index - template repository
+d2x project package index repository

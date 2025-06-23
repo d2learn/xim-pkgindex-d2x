@@ -30,7 +30,10 @@ function installed()
 end
 
 function install()
-    os.mv(package.name, rundir)
+    -- TODO: fix make os.mv interface for windows cross-disk symbol
+    --os.mv(package.name, rundir)
+    os.cp(package.name, rundir)
+    os.tryrm(package.name)
     os.cd(d2x_projectdir)
     -- install project dependencies
     os.exec("xim")

@@ -14,9 +14,7 @@ package.type = "courses"
 package.xpm = {
     windows = xpm_os_common,
     linux = xpm_os_common,
-    ubuntu = xpm_os_common,
-    archlinux = xpm_os_common,
-    manjaro = xpm_os_common,
+    macosx = xpm_os_common,
 }
 
 import("platform")

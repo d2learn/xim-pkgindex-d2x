@@ -1,6 +1,6 @@
 package = {
     -- base info
-    name = "mcpp-standard",
+    name = "d2mcpp",
     description = "Modern Cpp: Core Language Feature Tutorial",
 
     authors = "sunrisepeak",

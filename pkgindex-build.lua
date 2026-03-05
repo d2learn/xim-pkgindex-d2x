@@ -1,21 +1,18 @@
 package = {
-    -- base info
+    spec = "1",
+
     name = "pkgindex-update",
     description = "D2X Package Index Update Tool",
 
-    authors = "sunrisepeak",
-    license = "Apache-2.0",
+    authors = {"sunrisepeak"},
+    licenses = {"Apache-2.0"},
     repo = "https://github.com/d2learn/xim-pkgindex-d2x",
 
-    -- xim pkg info
     type = "auto-config",
 
     xpm = {
-        windows = { ["latest"] = { }, },
-        linux = { ["latest"] = { }, },
-        ubuntu = { ref = "linux" },
-        archlinux = { ref = "linux" },
-        manjaro = { ref = "linux" },
+        windows = { ["latest"] = { } },
+        linux = { ["latest"] = { } },
     },
 }
 
@@ -28,7 +25,6 @@ function installed()
 end
 
 function install()
-
     -- git clean -fdx and discard all changes
     os.cd(pkgsdir)
     os.execv("git", {"clean", "-fdx"})
@@ -40,9 +36,7 @@ function install()
     local all_index_cnt = #files
     for _, file in ipairs(files) do
         built_index_cnt = built_index_cnt + 1
-        -- skip pkgindex-update.lua
         if not file:endswith("pkgindex-update.lua") then
-            -- append template content to the end of the file
             cprint("[${green}%d/%d${clear}] d2x::%s", built_index_cnt, all_index_cnt, file)
             io.writefile(file, io.readfile(file) .. template_content)
         else

@@ -28,15 +28,25 @@ function installed()
 end
 
 function install()
-    local dest = d2x_projectdir()
-    os.cp(projectdir, dest)
+    os.cp(projectdir, pkginfo.install_dir())
     os.tryrm(projectdir)
+    return true
+end
+
+function config()
+    local dest = d2x_projectdir()
+    if os.isdir(dest) then
+        log.warn("Course '%s' is already installed at '%s', skipping config", package.name, dest)
+        return true
+    end
+    os.cp(path.join(pkginfo.install_dir(), projectdir), dest)
     os.cd(dest)
     system.exec("xlings install")
     return true
 end
 
 function uninstall()
-    os.tryrm(d2x_projectdir())
+    -- TODO: system.rundir() return '' when called from uninstall hook, so we can't reliably find the installed course dir to remove it.
+    --os.tryrm(d2x_projectdir())
     return true
 end
